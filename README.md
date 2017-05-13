@@ -5,8 +5,8 @@
 服务器：`nodejs+express`  
 数据库：`PostgreSQL`  
 前端：`framework7`  
-数据交互：`jQuery+ajax`
-数据获取：`scrapy`
+数据交互：`jQuery+ajax`  
+数据抓取：`scrapy`
 
 # 有空完善和作全文教程
 
