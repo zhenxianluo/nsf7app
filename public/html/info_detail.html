@@ -1,0 +1,74 @@
+<!-- info_detail page -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left"><a href="#" class="link back"> <i class="icon icon-back"></i><span>返回</span></a></div>
+    <div class="center sliding">详细资料</div>
+    <div class="right"><a href="#" class="save_info"> <i class="icon navigation"></i><span id="saveinfo">保存</span></a></div>
+  </div>
+</div>
+<div class="pages">
+  <div data-page="info_detail" class="page info_detail_">
+		<style>
+			.list-block{margin:10px 0 !important;}
+			.list-block .item-title.label{width:25% !important;}
+			.row_btn{margin-top: 40px;}
+			#upload_img{position: absolute;height: 4rem;width: 4rem;filter: alpha(opacity=0);opacity: 0;}
+		</style>
+    <div class="page-content">
+			<div class="listing-inner listing-inner-pic">
+				头像
+				<div class="listing-right"><input type="file" id="upload_img"><img src="./images/personImg.png" id="head_img"></div><i class="icon icon-forward"></i>
+			</div>
+			<div class="list-block">
+				<ul>
+					<li class="item-content">
+						<div class="item-title label">昵称</div>
+						<div class="item-input">
+							<input type="text" readonly="true" placeholder="" id="autocomplete-dropdown" name="info_username"></div>
+					</li>
+					<li class="item-content">
+						<div class="item-title label">邮箱</div>
+						<div class="item-input">
+							<input type="text" placeholder="" id="autocomplete-dropdown" name="info_email"></div>
+					</li>
+					<li class="item-content">
+						<div class="item-title label" id='info_sex'>性别</div>
+						<div class="item-input">
+							<input type="text" placeholder="" id="autocomplete-dropdown-all" name="info_sex"></div>
+					</li>
+				</ul>
+			</div>
+			<div class="list-block">
+				<ul>
+					<li class="item-content">
+						<div class="item-title label">博客</div>
+						<div class="item-input">
+							<input type="text" placeholder="" id="autocomplete-dropdown" name="info_blog"></div>
+					</li>
+					<li class="item-content">
+						<div class="item-title label">简介</div>
+						<div class="item-input">
+							<input type="text" placeholder="" id="autocomplete-dropdown" name="info_intro"></div>
+					</li>
+				</ul>
+			</div>
+			<div class="list-block">
+				<ul>
+					<li class="item-content">
+						<div class="item-title label">注册时间</div>
+						<div class="item-input">
+							<input type="text" placeholder="" readonly="true" id="autocomplete-dropdown" name="info_create"></div>
+					</li>
+				</ul>
+			</div>
+			<div class="row row_btn">
+				<div class="col-50">
+					<a href="#" class="button button-big button-red" id='reset_btn'>恢复初始</a>
+				</div>
+				<div class="col-50">
+					<a href="#" class="button button-big button-green" id='save_btn'>保存修改</a>
+				</div>
+			</div>  
+    </div>
+  </div>
+</div>
