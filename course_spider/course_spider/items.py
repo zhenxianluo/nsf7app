@@ -11,20 +11,19 @@ from scrapy.item import Item,Field
 class CourseSpiderItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    courseName = Field()
-    teacher = Field()
-    sourceType = Field()
-    courseImg = Field()
-    courseFrom = Field()
-    coursePoint = Field()
-    courseNum = Field()
+    courseName = Field() #
+    teacher = Field() #
+    courseType = Field() #
+    courseImg = Field() #
     courseIntro = Field()
-    teacherFrom = Field()
-    teacherFullPoint = Field()
-    teacherShortPoint = Field()
-    teacherIntro = Field()
-    aboutBook = Field()
-    courseMenu = Field()
-    courseFull = Field()
-    courseShort = Field()
-    website = Field()
+    teacherSchool = Field() #
+    teacherSchoolSub = Field() #
+    teacherImg = Field() #
+    courseVideoMD = Field() #
+    courseVideoHD = Field() #
+    teacherFullPoint = Field() #
+    teacherShortPoint = Field() #
+    teacherIntro = Field() #
+    courseMenu = Field() #
+    courseFull = Field() #
+    website = Field() #
