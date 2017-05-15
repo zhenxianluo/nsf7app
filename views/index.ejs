@@ -114,15 +114,16 @@
           </div>
         </div>
   	    <div class="pages navbar-fixed">
-  	      <div data-page="home-1" class="page">
+  	      <div data-page="home-1" class="page appMainPage">
   	        <div class="page-content">
   	        	<!-- 轮播图 -->
   	          <div class="swiper-container lb1" id="lunbo">
 								<div class="swiper-pagination"></div>
 								<div class="swiper-wrapper">
-                  {{#lunbo}}
-                  <div class="swiper-slide"><img src="{{this}}"></div>
-                  {{/lunbo}}
+                  <div class="swiper-slide"><img src="images/hk1.jpg"></div>
+                  <div class="swiper-slide"><img src="images/hk2.jpg"></div>
+                  <div class="swiper-slide"><img src="images/hk3.jpg"></div>
+                  <div class="swiper-slide"><img src="images/hk4.jpg"></div>
 								</div>
 							</div>
               <!-- 轮播图下面的图片 -->
@@ -186,7 +187,7 @@
           </div>
         </div>
   	    <div class="pages navbar-fixed">
-  	      <div data-page="home-2" class="page">
+  	      <div data-page="home-2" class="page appMainPage">
   	        <div class="page-content pull-to-refresh-content" data-ptr-distance="55">
               <!-- 默认的下拉刷新层 -->
               <div class="pull-to-refresh-layer">
@@ -285,7 +286,7 @@
           </div>
         </div>
   	    <div class="pages navbar-fixed">
-  	      <div data-page="home-3" class="page toolbar-fixed">
+  	      <div data-page="home-3" class="page toolbar-fixed appMainPage">
             <div class="toolbar messagebar">
               <div class="toolbar-inner">
                 <i class="f7-icons size-29 messagebarPlus">graph_square<input type="file" accept="image/*;capture=camera" multiple id="fileEle"></i>
@@ -327,7 +328,7 @@
           </div>
         </div>
   	    <div class="pages navbar-fixed">
-          <div data-page="home-4" class="page">
+          <div data-page="home-4" class="page appMainPage">
             <div class="page-content">
               <!-- 轮播图 -->
               <div class="swiper-container lb2">
@@ -349,16 +350,16 @@
                 <div class="live" >
                   <div class="live-title">
                     <h3>{{title}}</h3>
-                    <a>MORE</a>
+										<a class="get_course_all" coursetype='{{title}}'>MORE</a>
                   </div>
                   <div class="row">
                     {{#each this.courseStatus}}
                     <div class="col-50 live-link">
-                      <img src="{{src}}">
+											<img src="{{src}}" teacher="{{teacher}}" coursename="{{name}}" class="get_course">
                       <span>{{status}}</span>
                       <div class="live-info">
                         <span>{{name}}</span>
-                        <em>{{runTime}}</em>
+                        <em>{{teacher}}</em>
                       </div>
                     </div>
                     {{/each}}
@@ -509,7 +510,7 @@
 					},  
 					mainView = fw7App.addView('.view-main', fw7ViewOptions),
 					$$ = Framework7.$,
-					ipc = new myapp.appIndex(fw7App, $$);
+					ipc = new myapp.appIndex(fw7App, $$),
 					<% if(user == -1) { %>
 					welcome = new myapp.welcome(fw7App, $$);
 					<% } %>

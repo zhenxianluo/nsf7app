@@ -7,32 +7,18 @@
 */
 var myapp = myapp || {};
 myapp.pages = myapp.pages || {};
+var constvar = '';
 myapp.appIndex = function (myapp, $$) {
-  // 获取cookie
-  function getCookie(cname)
-  {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-      var c = ca[i].trim();
-      if (c.indexOf(name)==0) return c.substring(name.length,c.length);
-    }
-    return "";
-  }
-  // 设置了 cookie 名、cookie 值、cookie过期时间(秒)。
-  function setCookie(cname,cvalue,exdays){
-    var d = new Date();
-    d.setTime(d.getTime()+(exdays*1000));
-    var expires = "expires="+d.toGMTString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
-  }
-  // 模板引擎
-  (function(){
+	function websiteinit(){
+    var mySwiper1 = myapp.swiper('.lb1', {
+      pagination:'.lb1 .swiper-pagination',
+      speed: 400,
+      spaceBetween: 50,
+      autoplay: 3000,
+      autoplayDisableOnInteraction:false,
+      effect:'slide'
+    });
     var $template,t7html,compiledTemplate,
-    $template=$$('#lunbo').html();
-    compiledTemplate=Template7.compile($template);
-    t7html=compiledTemplate(context);
-    $$('#lunbo').html(t7html);
 
     $template=$$('#news').html();
     compiledTemplate=Template7.compile($template);
@@ -53,7 +39,25 @@ myapp.appIndex = function (myapp, $$) {
     compiledTemplate=Template7.compile($template);
     t7html=compiledTemplate(context);
     $$('#menuList').html(t7html);
-  }());
+	}
+  // 获取cookie
+  function getCookie(cname)
+  {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+      var c = ca[i].trim();
+      if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+    }
+    return "";
+  }
+  // 设置了 cookie 名、cookie 值、cookie过期时间(秒)。
+  function setCookie(cname,cvalue,exdays){
+    var d = new Date();
+    d.setTime(d.getTime()+(exdays*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+  }
   //微信相关
   (function(){
     var access_token,savetime;
@@ -103,14 +107,10 @@ myapp.appIndex = function (myapp, $$) {
       dynamicNavbar: true,
     });
     // 添加轮播图
-    var mySwiper1 = myapp.swiper('.lb1', {
-      pagination:'.lb1 .swiper-pagination',
-      speed: 400,
-      spaceBetween: 50,
-      autoplay: 3000,
-      autoplayDisableOnInteraction:false,
-      effect:'slide'
-    });
+		websiteinit();
+		$$(document).on('pageInit', '.appMainPage', function(e){
+			websiteinit();
+		});
     // 机器人聊天页的布局和设定
     $$(".messagebar").css("bottom","50px");
     var myMessages = myapp.messages('.messages', {
@@ -155,7 +155,7 @@ myapp.appIndex = function (myapp, $$) {
           bz=true;
         }
         var reveiveHtml="<div class='message message-with-avatar message-received'>"+
-          "<div class='message-name'>小集</div>"+
+          "<div class='message-name'>Rnet-Ao</div>"+
           "<div style='background-image:url(./images/robot.png)' class='message-avatar'><\/div>"+
           "<div class='message-text'>"+(bz?(obj.text+"<a href='"+obj.url+"'>"+obj.url+"</a>"):obj.text)+"<\/div>"+
         "<\/div>";
@@ -225,6 +225,25 @@ myapp.appIndex = function (myapp, $$) {
     $$(".personalInfo").on("click",function(){
       routerUrl("html/info_detail.html");
     });
+		function get_course_detail(that){
+			$.post('/get_course', {'coursename': that.attr('coursename'), 'teacher': that.attr('teacher')}, function(res){
+				if(res.status=='success'){
+					constvar = res.data;
+					for(var i in constvar){
+						if(constvar[i] == '')
+							constvar[i]='暂无相关数据';
+						if(constvar[i].constructor == String)
+							constvar[i] = constvar[i].replace(/\^\_\^/g, '<br>');
+					}
+					console.log(constvar);
+					routerUrl("html/courseinfo.html");
+				}
+				else if(res.status=='error')myapp.alert(res.msg, '错误提示');
+			}, 'json');
+		}
+		$("body").on('click', '.get_course', function(){
+			get_course_detail($(this));
+		});
     // 相对于视图路由函数，url为跳转地址
     function routerUrl(url){
       if($$("#tab1").hasClass('active')){
@@ -237,11 +256,6 @@ myapp.appIndex = function (myapp, $$) {
         view4.router.loadPage(url);
       };
     };
-    $$(".live-link").on("click",function(event){
-      var $this=$$(this);
-      $$(".live-cover").remove();
-      $this.prepend('<div class="live-cover"><img src="images/play.png"></div>');
-    })
     $$(document).on('pageInit', function (e) {
       if($$(".page").length!=5){
         $$(".indexTool").hide();
@@ -271,6 +285,74 @@ myapp.appIndex = function (myapp, $$) {
         myapp.pullToRefreshDone();
       },2000)
     });
+		$('body').on('click', '.get_course_all', function(e){
+			var that = $(this);
+			$.post('/get_course_all', {'courseType': that.attr('coursetype')}, function(res){
+				if(res.status=='success'){
+					constvar = res.data;
+					for(var i in constvar){
+						if(constvar[i] == '')
+							constvar[i]='暂无相关数据';
+						if(constvar[i].constructor == String)
+							constvar[i] = constvar[i].replace(/\^\_\^/g, '<br>');
+					}
+					console.log(constvar);
+					routerUrl("html/courseall.html");
+				}
+				else if(res.status=='error')myapp.alert(res.msg, '错误提示');
+			}, 'json');
+		});
+		myapp.onPageBeforeInit('courseall', function(page){
+			console.log(constvar);
+			function parse_html(step, data){
+				var newdata = data.splice(0, step);
+				var html = '';
+				for(var i in newdata){
+					html += ('<div class="get_course card demo-card-header-pic" coursename="'+newdata[i].coursename+'" teacher="'+newdata[i].teacher+'">'+
+						'<div style="background-image:url('+newdata[i].courseimg+')" valign="bottom" class="card-header color-white no-border">'+newdata[i].coursename+'</div>'+
+						'<div class="card-content">'+
+							'<div class="card-content-inner">'+
+								'<p>'+newdata[i].coursetype+'</p>'+
+								'<p>'+newdata[i].teacher+'</p>'+
+							'</div>'+
+						'</div>'+
+					'</div>');
+				}
+				$$('.courseinfo_ .list-block').append(html)
+			}
+			parse_html(6, constvar);
+			var loading = false;
+			$$('.infinite-scroll').on('infinite', function(){
+				if(loading) return;
+				loading = true;
+				setTimeout(function(){
+					loading = false;
+					if(!constvar.length){
+						myapp.detachInfiniteScroll($$('.infinite-scroll'));
+						$$('.infinite-scroll-preloader').remove();
+						$$('#nocoursetip').text('全部课程已经显示完！');
+						return;
+					}
+					parse_html(6, constvar);
+				}, 1000);
+			})
+		})
+		myapp.onPageBeforeInit('courseinfo', function(page){
+			console.log(constvar);
+			$('#coursevideo').attr('src', constvar.coursevideomd);
+			$('#courseName').html(constvar.coursename);
+			$('#teacherName').html(constvar.teacher);
+			$('#courseType').html(constvar.coursetype);
+			$('#courseIntro').html(constvar.courseintro);
+			$('#website').html(constvar.website);
+			$('#coursefull').html(constvar.coursefull);
+			$('#teacherSchool').html(constvar.teacherschool);
+			$('#teacherSchoolSub').html(constvar.teacherschoolsub);
+			$('#teachershortpoint').html(constvar.teachershortpoint);
+			$('#teacherfullpoint').html(constvar.teacherfullpoint);
+			$('#teacherintro').html(constvar.teacherintro);
+			$('#coursemenu').html(constvar.coursemenu);
+		})
 		myapp.onPageBeforeInit('setting', function(page){
 			$('#loginout').on('click', function(e){
 				$.post('/quit', {}, function(res){

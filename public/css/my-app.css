@@ -397,6 +397,12 @@ footer p{
 	width: 30%;
 	margin-top: 35%;
 }
+.live-link img{
+	width: 230px;
+	height: 153px;
+	max-width: 100%;
+	margin-left: 1.7%;
+}
 /* info_detail.html */
 .listing{
 	width: 100%;

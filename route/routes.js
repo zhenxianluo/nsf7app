@@ -12,6 +12,30 @@ function getTimeStr(){
 	return [[nd.getFullYear(),nd.getMonth(),nd.getDate()].join('-'),[nd.getHours(),nd.getMinutes(),nd.getSeconds()].join(':')].join(' ');
 }
 module.exports = function(app){
+	app.post('/get_course_all', (req, res) => {
+		var sql = "select courseimg, coursename, teacher, coursetype from course where coursetype='"+req.body['courseType']+"'";
+		console.log(sql);
+		db.any(sql).then(data => {
+			if(data.length > 0){
+				res.json({
+					'status': 'success',
+					'data': data
+				})
+			}else res.json({'status': 'error', 'msg': '未查询到结果！'});
+		})
+	})
+	app.post('/get_course', (req, res) => {
+		var sql= "select * from course where teacher='"+req.body['teacher']+"' and coursename='"+req.body['coursename']+"'";
+		console.log(sql);
+		db.any(sql).then(data => {
+			if(data.length > 0){
+				res.json({
+					'status': 'success',
+					'data': data[0]
+				})
+			}else res.json({'status': 'error', 'msg': '未查询到结果！'});
+		});
+	});
 	app.post('/quit', (req, res) => {
 		req.session.user = '';
 		res.json({

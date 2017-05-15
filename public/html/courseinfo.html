@@ -1,0 +1,61 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left"><a href="#" class="link back"> <i class="icon icon-back"></i><span>返回</span></a></div>
+    <div class="center sliding">课程详情</div>
+  </div>
+</div>
+<div class="pages">
+  <div data-page="courseinfo" class="page courseinfo_">
+		<style>
+			#coursevideo{width: 100%;}
+			.content-block-title{margin-top: 15px !important;}
+		</style>
+    <div class="page-content">
+			<video src="" controls="controls" id='coursevideo'></video>
+      <div class="content-block">
+				<div class="buttons-row">
+					<a href="javascript:void();" class="tab-link active button" onclick="$('.courseinfo_ .active').removeClass('active');$('#courseinfo').addClass('active');$(this).addClass('active');">课程信息</a>
+					<a href="javascript:void();" class="tab-link button" onclick="$('.courseinfo_ .active').removeClass('active');$('#teacherinfo').addClass('active');$(this).addClass('active');">教师信息</a>
+					<a href="javascript:void();" class="tab-link button" onclick="$('.courseinfo_ .active').removeClass('active');$('#capterinfo').addClass('active');$(this).addClass('active');">课程章节</a>
+				</div>
+      </div>
+			<div class="tabs">
+				<div id="courseinfo" class="tab active">
+					<div class="content-block">
+						<div class="content-block-title">课程名:</div>
+						<div class="content-block-inner inset" id="courseName"></div>
+						<div class="content-block-title">任教教师:</div>
+						<div class="content-block-inner inset" id="teacherName"></div>
+						<div class="content-block-title">课目类型:</div>
+						<div class="content-block-inner inset" id="courseType"></div>
+						<div class="content-block-title">课程介绍:</div>
+						<div class="content-block-inner inset" id="courseIntro"></div>
+						<div class="content-block-title">源网址:</div>
+						<div class="content-block-inner inset" id="website"></div>
+						<div class="content-block-title">课程具体说明:</div>
+						<div class="content-block-inner inset" id="coursefull"></div>
+					</div>
+				</div>
+				<div id="teacherinfo" class="tab">
+					<div class="content-block">
+						<div class="content-block-title">工作院校:</div>
+						<div class="content-block-inner inset" id="teacherSchool"></div>
+						<div class="content-block-title">具体部门:</div>
+						<div class="content-block-inner inset" id="teacherSchoolSub"></div>
+						<div class="content-block-title">头衔:</div>
+						<div class="content-block-inner inset" id="teachershortpoint"></div>
+						<div class="content-block-title">职位:</div>
+						<div class="content-block-inner inset" id="teacherfullpoint"></div>
+						<div class="content-block-title">个人成就:</div>
+						<div class="content-block-inner inset" id="teacherintro"></div>
+					</div>
+				</div>
+				<div id="capterinfo" class="tab">
+					<div class="content-block">
+						<div class="content-block-inner inset" id="coursemenu"></div>
+					</div>
+				</div>
+			</div>
+    </div>
+  </div>
+</div>
