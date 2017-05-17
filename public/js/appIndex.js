@@ -20,11 +20,6 @@ myapp.appIndex = function (myapp, $$) {
     });
     var $template,t7html,compiledTemplate,
 
-    $template=$$('#news').html();
-    compiledTemplate=Template7.compile($template);
-    t7html=compiledTemplate(context);
-    $$('#news').html(t7html);
-
     $template=$$('#course').html();
     compiledTemplate=Template7.compile($template);
     t7html=compiledTemplate(context);
@@ -39,6 +34,7 @@ myapp.appIndex = function (myapp, $$) {
     compiledTemplate=Template7.compile($template);
     t7html=compiledTemplate(context);
     $$('#menuList').html(t7html);
+
 	}
   // 获取cookie
   function getCookie(cname)
@@ -123,14 +119,19 @@ myapp.appIndex = function (myapp, $$) {
       if($this.scrollTop()>0&&$this.height()<92){
         $this.css("height",$this.height()+20+"px");
         $toolbar.css("height",$this.height()+16+"px");
+				$('.messagebarPlus').css('margin-top', ($('.messagebar').innerHeight()-29)/2);
       }
       if($this.scrollTop()==0&&$this.height()>32){
         $this.css("height",$this.height()-20+"px");
         $toolbar.css("height",$this.height()+16+"px");
+				$('.messagebarPlus').css('margin-top', ($('.messagebar').innerHeight()-29)/2);
       }
     });
     $$("#tab3 .page-content").css("padding-bottom","94px");
     $$(".messageSend").on("click",function(event){
+			$$('.messagebar').css('height', '44px');
+			$$('.toolbarText').css('height', '2rem');
+			$('.messagebarPlus').css('margin-top', ($('.messagebar').innerHeight()-29)/2);
       var $toolbarText=$$(".toolbarText");
       var $messageStr=$toolbarText.val();
       var $info=$messageStr.trim();
@@ -188,33 +189,33 @@ myapp.appIndex = function (myapp, $$) {
       }
     })
     // 返回顶部按钮
-    $$(".footerTop img").on("click",function(event){
-      var $page;
-      if($$("#tab1").hasClass('active')){
-        $page=$$("#tab1 .page-content");
-      }else if($$("#tab4").hasClass('active')){
-        $page=$$("#tab4 .page-content");
-      }
-      var pageHeight=$page.scrollTop();
-      if(pageHeight==0)return;
-      var timer = setInterval(function(){
-        pageHeight/=2;
-        $page.scrollTop(pageHeight);
-        if(pageHeight<10){
-          clearInterval(timer);
-        }
-      },50);
-      $page.scrollTop(0);
-    });
+    //$$(".footerTop img").on("click",function(event){
+    //  var $page;
+    //  if($$("#tab1").hasClass('active')){
+    //    $page=$$("#tab1 .page-content");
+    //  }else if($$("#tab4").hasClass('active')){
+    //    $page=$$("#tab4 .page-content");
+    //  }
+    //  var pageHeight=$page.scrollTop();
+    //  if(pageHeight==0)return;
+    //  var timer = setInterval(function(){
+    //    pageHeight/=2;
+    //    $page.scrollTop(pageHeight);
+    //    if(pageHeight<10){
+    //      clearInterval(timer);
+    //    }
+    //  },50);
+    //  $page.scrollTop(0);
+    //});
     // 软件详情页
-    $$(document).on('pageInit', '.page[data-page="appdown"]', function (e) {
-      var mySwiper2 = myapp.swiper('.swiperAppdown', {
-        pagination:'.swiperAppdown .swiper-pagination',
-        slidesPerView: 1.3,
-        paginationClickable: true,
-        spaceBetween: 20
-      });
-    });
+    //$$(document).on('pageInit', '.page[data-page="appdown"]', function (e) {
+    //  var mySwiper2 = myapp.swiper('.swiperAppdown', {
+    //    pagination:'.swiperAppdown .swiper-pagination',
+    //    slidesPerView: 1.3,
+    //    paginationClickable: true,
+    //    spaceBetween: 20
+    //  });
+    //});
     // 设置的路由
     $$(".setting").on("click",function(event){
       routerUrl("html/setting.html");
@@ -225,6 +226,7 @@ myapp.appIndex = function (myapp, $$) {
     $$(".personalInfo").on("click",function(){
       routerUrl("html/info_detail.html");
     });
+		//通用方法获取课程详细信息
 		function get_course_detail(that){
 			$.post('/get_course', {'coursename': that.attr('coursename'), 'teacher': that.attr('teacher')}, function(res){
 				if(res.status=='success'){
@@ -280,11 +282,12 @@ myapp.appIndex = function (myapp, $$) {
       }
     })
     /*下拉刷新*/
-    $$('.pull-to-refresh-content').on('refresh',function(e){
-      setTimeout(function(){
-        myapp.pullToRefreshDone();
-      },2000)
-    });
+    //$$('.pull-to-refresh-content').on('refresh',function(e){
+    //  setTimeout(function(){
+    //    myapp.pullToRefreshDone();
+    //  },2000)
+    //});
+		//获得全部课程信息
 		$('body').on('click', '.get_course_all', function(e){
 			var that = $(this);
 			$.post('/get_course_all', {'courseType': that.attr('coursetype')}, function(res){
@@ -302,6 +305,7 @@ myapp.appIndex = function (myapp, $$) {
 				else if(res.status=='error')myapp.alert(res.msg, '错误提示');
 			}, 'json');
 		});
+		//课程列表页加载后执行，含无限滚动
 		myapp.onPageBeforeInit('courseall', function(page){
 			console.log(constvar);
 			function parse_html(step, data){
@@ -337,6 +341,7 @@ myapp.appIndex = function (myapp, $$) {
 				}, 1000);
 			})
 		})
+		//课程详情页
 		myapp.onPageBeforeInit('courseinfo', function(page){
 			console.log(constvar);
 			$('#coursevideo').attr('src', constvar.coursevideomd);
@@ -353,6 +358,7 @@ myapp.appIndex = function (myapp, $$) {
 			$('#teacherintro').html(constvar.teacherintro);
 			$('#coursemenu').html(constvar.coursemenu);
 		})
+		//设置页（退出登录）
 		myapp.onPageBeforeInit('setting', function(page){
 			$('#loginout').on('click', function(e){
 				$.post('/quit', {}, function(res){
@@ -365,6 +371,7 @@ myapp.appIndex = function (myapp, $$) {
 				}, 'json')
 			})
 		})
+		//个人详细信息
 		myapp.onPageBeforeInit('info_detail', function(page){
 			function resetinfo(){
 				eval($('#infomation').val());

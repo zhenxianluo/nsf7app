@@ -4,6 +4,7 @@ create table course(
 	teacher text,                      -- 教师名
 	courseType text,                   -- 课程类型
 	courseImg text,                    -- 课程图片
+	courseImgBig text,
 	courseIntro text,                  -- 课程介绍
 	teacherSchool text,                -- 教师学校
 	teacherSchoolSub text,             -- 二级岗位

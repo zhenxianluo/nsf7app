@@ -11,9 +11,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta property="wb:webmaster" content="673bbf8e6a8144eb" />
     <!-- 微博登录接口sdk引用 -->
-    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1963516189&debug=true" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1963516189&debug=true" type="text/javascript" charset="utf-8"></script>-->
     <!-- qq互联登录接口sdk引用 , 暂时使用demo页的appid-->
-    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="100229030" charset="utf-8"></script>
+		<!--<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="100229030" charset="utf-8"></script>-->
     <!-- Your app title -->
     <title>视频教程</title>
     <!-- 引入framework7样式文件-->
@@ -120,10 +120,9 @@
   	          <div class="swiper-container lb1" id="lunbo">
 								<div class="swiper-pagination"></div>
 								<div class="swiper-wrapper">
-                  <div class="swiper-slide"><img src="images/hk1.jpg"></div>
-                  <div class="swiper-slide"><img src="images/hk2.jpg"></div>
-                  <div class="swiper-slide"><img src="images/hk3.jpg"></div>
-                  <div class="swiper-slide"><img src="images/hk4.jpg"></div>
+									<% hotcourse.forEach(function(course){ %>
+										<div class="swiper-slide"><img src="<%= course.courseimgbig %>" teacher="<%= course.teacher %>" coursename="<%= course.coursename %>" class="get_course"></div>
+									<% }) %>
 								</div>
 							</div>
               <!-- 轮播图下面的图片 -->
@@ -131,9 +130,9 @@
                 <a href="##">
                   <img src="images/hk.jpg">
                   <p>
-                    <b>超多教程等你学</b>
+                    <b>超多课程等你学</b>
                     <br>
-                    <a href="#" class="button button-big button-round button-raised color-yellow">立即学习</a>
+                    <a href="#tab4" onclick="$('.toolbarTab2').addClass('active')" class="tab-link button button-big button-round button-raised color-yellow">立即学习</a>
                   </p>
                 </a>
               </div>
@@ -141,9 +140,12 @@
                 <b>教师推荐</b>
                 <c>TEACHER RECOMMEND</c>
                 <div class="row no-gutter">
-                  <div class="col-33"><a href="html/appdown.html"><img src="images/11.jpg" style="border-radius: 50%;"></a></div>
-                  <div class="col-33"><a href="html/appdown.html"><img src="images/22.jpg" style="border-radius: 50%;"></a></div>
-                  <div class="col-33"><a href="html/appdown.html"><img src="images/33.jpg" style="border-radius: 50%;"></a></div>
+									<% hotcourse.forEach(function(course){ %>
+										<div class="col-25"><img src="<%= course.teacherimg %>" style="border-radius: 50%;"></div>
+									<% }) %>
+									<!--<div class="col-33"><a href="html/appdown.html"><img src="images/11.jpg" style="border-radius: 50%;"></a></div>-->
+                  <!--<div class="col-33"><a href="html/appdown.html"><img src="images/22.jpg" style="border-radius: 50%;"></a></div>-->
+                  <!--<div class="col-33"><a href="html/appdown.html"><img src="images/33.jpg" style="border-radius: 50%;"></a></div>-->
                 </div>
               </div>
               <div class="gameNews">
@@ -151,16 +153,9 @@
                 <c>NEWS</c>
                 <div class="list-block" id="news">
                   <ul>
-                    {{#each news}}
-                    <li>
-                      <a href="" class="item-link item-content">
-                        <span class="item-inner">
-                          <span class="item-title">{{title}}</span>
-                          <span class="item-after">{{time}}</span>
-                        </span>
-                      </a>
-                    </li>
-                    {{/each}}
+										<% hotnews.forEach(function(news){ var pubt = new Date(news.pubtime); %>
+											<li><a href="" class="item-link item-content"><span class="item-inner"><span class="item-title"><%= news.title %></span><span class="item-after"><%= pubt.getFullYear()+'-'+pubt.getMonth()+'-'+pubt.getDate() %></span></span></a></li>
+										<% }) %>
                   </ul>
                 </div>
               </div>
@@ -179,7 +174,7 @@
             <a href="#" class="link open-panel sliding">
             </a>
             </div>
-            <div class="center sliding navbarTitle">充值</div>
+            <div class="center sliding navbarTitle">关于</div>
             <div class="right">
             <a href="#" class="link sliding open-panel" data-panel="right">
             </a>
@@ -188,84 +183,45 @@
         </div>
   	    <div class="pages navbar-fixed">
   	      <div data-page="home-2" class="page appMainPage">
-  	        <div class="page-content pull-to-refresh-content" data-ptr-distance="55">
-              <!-- 默认的下拉刷新层 -->
-              <div class="pull-to-refresh-layer">
-                <div class="preloader"></div>
-                <div class="pull-to-refresh-arrow"></div>
-              </div>
-  	          <div class="content-block gameDownload">
-  	            <div class="content-block-title">热门应用下载</div>
-  	            <div class="list-block media-list">
-  	            	<ul>
-  	            		<li>
-  	            			<a href="html/appdown.html" class="item-link item-content">
-  	            				<div class="item-media"><img src="http://usr.im/80x80?text=中国象棋" width="80"></div>
-  	            				<div>
-  	            					<div class="item-title-row">
-  	            						<div class="item-title">中国象棋</div>
-  	            						<div class="item-after">详情</div>
-  	            					</div>
-  	            					<div class="item-subtitle">10.6MB</div>
-  	            					<div class="item-text">中国象棋欢乐游戏快乐随心！欢乐游戏快乐随心！</div>
-  	            				</div>
-  	            			</a>
-  	            		</li>
-  	            	</ul>
-  	            </div>
-                <div class="list-block media-list">
-                  <ul>
-                    <li>
-                      <a href="#" class="item-link item-content">
-                        <div class="item-media"><img src="http://usr.im/80x80?text=五子棋" width="80"></div>
-                        <div>
-                          <div class="item-title-row">
-                            <div class="item-title">五子棋</div>
-                            <div class="item-after">详情</div>
-                          </div>
-                          <div class="item-subtitle">21.8MB</div>
-                          <div class="item-text">五子棋欢乐游戏快乐随心！五子棋欢乐游戏快乐随心！五子棋欢乐游戏快乐随心！</div>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-  	            <div class="list-block media-list">
-  	            	<ul>
-  	            		<li>
-  	            			<a href="#" class="item-link item-content">
-  	            				<div class="item-media"><img src="http://usr.im/80x80?text=炸金花" width="80"></div>
-  	            				<div>
-  	            					<div class="item-title-row">
-  	            						<div class="item-title">炸金花</div>
-  	            						<div class="item-after">详情</div>
-  	            					</div>
-  	            					<div class="item-subtitle">13.6MB</div>
-  	            					<div class="item-text">炸金花手机版正式上线，欢乐游戏快乐随心！</div>
-  	            				</div>
-  	            			</a>
-  	            		</li>
-  	            	</ul>
-  	            </div>
-  	            <div class="list-block media-list">
-  	            	<ul>
-  	            		<li>
-  	            			<a href="#" class="item-link item-content">
-  	            				<div class="item-media"><img src="http://usr.im/80x80?text=斗地主" width="80"></div>
-  	            				<div>
-  	            					<div class="item-title-row">
-  	            						<div class="item-title">斗地主</div>
-  	            						<div class="item-after">详情</div>
-  	            					</div>
-  	            					<div class="item-subtitle">16.8MB</div>
-  	            					<div class="item-text">斗地主手机版正式上线,欢乐游戏快乐随心！欢乐游戏快乐随心！</div>
-  	            				</div>
-  	            			</a>
-  	            		</li>
-  	            	</ul>
-  	            </div>
-  	          </div>
-  	        </div>
+  	        <div class="page-content siteabout">
+									<h1 class="about-title">关于项目</h1>
+									<h2>项目地址：</h2>
+									<div class="content-block"><a href="https://github.com/zhenxianluo/nsf7app">https://github.com/zhenxianluo/nsf7app</a></div>
+									<h2>项目介绍：</h2>
+									<div class="content-block">
+										<p>　　本项目ｕｉ界面及整体框架由去年开始制作，于今年5月开始搭建服务器，打通前后端，可通过cordova打包成安卓app,但会出现图标显示不出来问题，如有兴趣可以共同开发push代码到本git仓库.</p>
+										<p>　　本网站主要定位于共享学习，功能主题为提供优质的课程资源，感谢<a href="http://jhc.zhiye.chaoxing.com/portal">http://jhc.zhiye.chaoxing.com/portal</a>提供数据支持！</p>
+									</div>
+									<h1 class="about-title">相关技术</h1>
+									<div class="content-block">
+									<p>服务器：Node.js + Express</p>
+									<p>数据库：PostgreSQL</p>
+									<p>数据获取：Python + Scrapy</p>
+									<p>前端框架：framework7</p>
+									<p>前后端交互：jQuery + Ajax</p>
+									</div>
+									<h1 class="about-title">关于作者</h1>
+									<h2>关于作者：</h2>
+									<div class="content-block"><p>英文名: `Rnet-Ao`, 简称 `Rnet`, 发音 <strong>`/rən't/`</strong></p></div>
+									<h2>博客地址：</h2>
+									<div class="content-block"><a href="http://howduudu.xyz/">http://howduudu.xyz/</a></div>
+									<h2>联系邮箱：</h2>
+									<div class="content-block"><a href="mailto:zxl_d@foxmail.com">zxl_d@foxmail.com</a></div>
+									<h1 class="about-title">项目本地化</h1>
+									<ol class="about-step" style="word-wrap: break-word;">
+										<li  class="content-block">假设已经安装nodejs、pgsql、python环境.还有git用于版本控制.</li>
+										<li  class="content-block">克隆项目到本地：<code>git clone https://github.com/zhenxianluo/nsf7app.git</code></li>
+										<li class="content-block">进入项目目录：cd nsf7app</li>
+										<li class="content-block">安装nodejs和scrapy的依赖：npm install & pip install -r requirement.txt</li>
+										<li class="content-block">启动pgsql：sudo /etc/init.d/postgresql start</li>
+										<li class="content-block">自行配置pgsql并创建deploy用户，用于项目部署用，然后新建数据库：design,其中siteuser存用户数据，course存课程信息</li>
+										<li class="content-block">创建siteuser表：psql -U deploy -t design -f ./edu_design/create_db/createdb.sql</li>
+										<li class="content-block">创建course表：psql -U deploy -t design -f ./edu_design/create_db/createdb_spider</li>
+										<li class="content-block">启动爬虫爬课程数据进数据库：scrapy crawl course</li>
+										<li class="content-block">启动服务器：npm start</li>
+										<li class="content-block">监听网址：127.0.0.1:3000</li>
+									</ol>
+						</div>
   	      </div>
   	    </div>
   	  </div>
@@ -390,11 +346,12 @@
     			</a>
     			<a href="#tab2" class="tab-link toolbarTab4">
 						<i class="f7-icons size-29">drawers</i>
-						<span class="tabbar-label">资源</span>
+						<span class="tabbar-label">关于</span>
     			</a>
     		</div>
     	</div>
     </div>
+		<% if(user == -1) { %>
       <!-- 注册页 -->
     <div class="popup-register">
       <div class="register-screen popup">
@@ -436,7 +393,7 @@
         <div class="picker-modal-inner">
           <div class="content-block" style="margin:10px 0;">
             <h3>登录注册用户服务条款</h3>
-            <p style="font-size: 0.8rem;">本web应用为本人测试用，不做商业用途</p>
+            <p style="font-size: 0.8rem;">全栈开发就是这么简单</p>
             <p style="font-size: 0.8rem;">励志名言：</p>
             <div class="row no-gutter" style="font-size: 1rem;">
               <div class="col-25"><a href="#issues1" class="button tab-link active">No.1</a></div>
@@ -449,7 +406,7 @@
                   <p>Web倒是可以给梦想者一个启示，你能够拥有梦想，而且梦想能够实现，网络是离你梦想最近的地方!</p>
               </div>
               <div id="issues2" class="tab">
-                  <p>作为一名黑客，在你取得成功的问题上没有什么诀窍可寻，只有你越努力工作，你才能越接近成功</p>
+                  <p>机遇和机会不会选择一个把随波逐流当成理所当然的人。</p>
               </div>
               <div id="issues3" class="tab">
                   <p>通往电脑的路不止一条，所有的信息都应该是免费的，打破电脑特权，在电脑上创造艺术和美，计算机将使生活更美好。</p>
@@ -462,6 +419,7 @@
         </div>
       </div>
     </div>
+		<% } %>
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <!-- 首页引导 -->

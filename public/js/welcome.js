@@ -143,36 +143,36 @@ myapp.welcome = function (myapp, $$) {
         src: 'lib/framework7/img/qqlogin.svg'
       });
     },1000);
-    WB2.anyWhere(function (W) {
-        W.widget.connectButton({
-            id: "wb_connect_btn",
-            type: '4,1',
-            callback: {
-                login: function (o) { //登录后的回调函数
-                    welcomescreen.close();
-                    console.log('微博已经登录过了');
-                },
-                logout: function () { //退出后的回调函数
-                    alert('logout');
-                }
-            }
-        });
-    });
+    //WB2.anyWhere(function (W) {
+    //    W.widget.connectButton({
+    //        id: "wb_connect_btn",
+    //        type: '4,1',
+    //        callback: {
+    //            login: function (o) { //登录后的回调函数
+    //                welcomescreen.close();
+    //                console.log('微博已经登录过了');
+    //            },
+    //            logout: function () { //退出后的回调函数
+    //                alert('logout');
+    //            }
+    //        }
+    //    });
+    //});
     /*第三方登录之微博 结束*/
     /*第三方登录之QQ 开始*/
-    QC.Login({
-       btnId:"qqLoginBtn"    //插入按钮的节点id
-    });
-    QC.api("get_user_info", {})
-    .success(function (s) {//成功回调
-        //alert("当前用户昵称为：" + s.data.nickname + "  性别为：" + s.data.gender);
-        welcomescreen.close();
-        console.log('qq已经登录过了');
-    }).error(function (f) {//失败回调
-        //alert("获取用户信息失败！");
-    }).complete(function (c) {//完成请求回调
-        //alert("获取用户信息完成！");
-    });
+    //QC.Login({
+    //   btnId:"qqLoginBtn"    //插入按钮的节点id
+    //});
+    //QC.api("get_user_info", {})
+    //.success(function (s) {//成功回调
+    //    //alert("当前用户昵称为：" + s.data.nickname + "  性别为：" + s.data.gender);
+    //    welcomescreen.close();
+    //    console.log('qq已经登录过了');
+    //}).error(function (f) {//失败回调
+    //    //alert("获取用户信息失败！");
+    //}).complete(function (c) {//完成请求回调
+    //    //alert("获取用户信息完成！");
+    //});
     /*第三方登录之微博 结束*/
     /*注册页的日期设置 开始*/
     var today=new Date();

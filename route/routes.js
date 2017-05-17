@@ -2,7 +2,6 @@ var express = require('express');
 var path = require('path');
 var fs = require('fs');
 var fm = require('formidable')
-//用于创建md5加密字符串
 var crypto = require('crypto');
 var pgp = require('pg-promise')({});
 var cn = "postgresql://deploy:deploy@localhost:5432/design";
@@ -109,22 +108,34 @@ module.exports = function(app){
 		});
 	})
 	app.get('/', function(req, res){
-		var sql = "select * from siteuser where username='"+req.session.user+"'";
-		console.log(sql);
 		var user, useremail, info, headimg;
-		db.any(sql).then(data => {
-			if(data.length > 0){
-				useremail=data[0].email;
-				info = 'var info='+JSON.stringify(data[0]);
-				headimg = data[0].headimg;
-			}
-			res.render('index', {
-				user: req.session.user||-1,
-				email: useremail||-1,
-				headimg: headimg||'./images/personImg.png',
-				infomation: info||-1
+		db.tx(t => {
+			var sql = "select * from siteuser where username='"+req.session.user+"'";
+			console.log(sql);
+			return t.any(sql).then(data => {
+				if(data.length > 0){
+					useremail=data[0].email;
+					info = 'var info='+JSON.stringify(data[0]);
+					headimg = data[0].headimg;
+				}
+				var sql = "select coursename,courseimgbig,teacher,teacherimg from course where coursevideomd!='' and teacherimg!='' and courseimgbig!='' and coursename!='' limit 4;";
+				console.log(sql);
+				return t.any(sql).then(hotc => {
+					var sql = "select * from news order by pubtime desc limit 8;";
+					console.log(sql);
+					return t.any(sql).then(news => {
+						res.render('index', {
+							user: req.session.user||-1,
+							email: useremail||-1,
+							headimg: headimg||'./images/personImg.png',
+							infomation: info||-1,
+							hotcourse: hotc,
+							hotnews: news
+						});
+					})
+				});
 			});
-		})
+		});
 	  //fs.readFile(path.join(__dirname, '../views', 'index.html'), 'utf-8', function (err, data) {
 		//	if (err) throw err;
 		//	res.writeHead(200, {"Content-Type": "text/html"});

@@ -15,6 +15,7 @@ class CourseSpiderItem(Item):
     teacher = Field() #
     courseType = Field() #
     courseImg = Field() #
+    courseImgBig = Field()
     courseIntro = Field()
     teacherSchool = Field() #
     teacherSchoolSub = Field() #

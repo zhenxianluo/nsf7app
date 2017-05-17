@@ -9,7 +9,7 @@ from course_spider.items import CourseSpiderItem
 class CourseSpider(scrapy.Spider):
     name = "course"
     allowed_domains = ["jhc.zhiye.chaoxing.com", "mooc1.chaoxing.com"]
-    start_urls = ['http://jhc.zhiye.chaoxing.com/portal/schoolCourseInfo/columnCourse?columnId=5652&classifyId=0&keyword=&pageNum=1']
+    #start_urls = ['http://jhc.zhiye.chaoxing.com/portal/schoolCourseInfo/columnCourse?columnId=5652&classifyId=0&keyword=&pageNum=1']
     urls = ['http://jhc.zhiye.chaoxing.com/portal/schoolCourseInfo/columnCourse?columnId=2773&classifyId=0&keyword=&pageNum=',
             'http://jhc.zhiye.chaoxing.com/portal/schoolCourseInfo/columnCourse?columnId=5652&classifyId=0&keyword=&pageNum=',
             'http://jhc.zhiye.chaoxing.com/portal/schoolCourseInfo/columnCourse?columnId=5653&classifyId=0&keyword=&pageNum=',
@@ -52,6 +52,8 @@ class CourseSpider(scrapy.Spider):
     def get_detail(self, response):
         item = response.meta['item']
         soup = BeautifulSoup(response._body, 'lxml')
+        try: item['courseImgBig'] = soup.find('div', {'class': 'bbc pb1 rel'}).img['src']
+        except Exception as e: item['courseImgBig'] = ''
         try:
             item['teacher'] = self.parse_data(soup.select('.course_title_box span')[1].string)
         except Exception as e:
