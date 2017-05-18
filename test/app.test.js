@@ -1,12 +1,8 @@
-//引入chai和chai-http模块
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-//引入服务入口模块
 var server = require('../app');
-//引入chai的should和expect
 var should = chai.should();
 var expect = chai.expect;
-//用于建立http请求
 chai.use(chaiHttp);
 
 var data = {'username': 'ahahaha', 'password': 'ohehehe'};

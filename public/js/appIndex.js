@@ -226,6 +226,20 @@ myapp.appIndex = function (myapp, $$) {
     $$(".personalInfo").on("click",function(){
       routerUrl("html/info_detail.html");
     });
+		function get_news_detail(that){
+			$.post('/get_news', {'title': that.attr('title'), 'pubtime': that.attr('pubtime')}, function(res){
+				if(res.status=='success'){
+					constvar = res.data;
+					for(var i in constvar){
+						if(constvar[i] == '')
+							constvar[i]='无内容';
+					}
+					console.log(constvar);
+					routerUrl("html/newsinfo.html");
+				}
+				else if(res.status=='error')myapp.alert(res.msg, '错误提示');
+			}, 'json');
+		}
 		//通用方法获取课程详细信息
 		function get_course_detail(that){
 			$.post('/get_course', {'coursename': that.attr('coursename'), 'teacher': that.attr('teacher')}, function(res){
@@ -245,6 +259,9 @@ myapp.appIndex = function (myapp, $$) {
 		}
 		$("body").on('click', '.get_course', function(){
 			get_course_detail($(this));
+		});
+		$('body').on('click', '.get_news', function(e){
+			get_news_detail($(this));
 		});
     // 相对于视图路由函数，url为跳转地址
     function routerUrl(url){
@@ -358,6 +375,40 @@ myapp.appIndex = function (myapp, $$) {
 			$('#teacherintro').html(constvar.teacherintro);
 			$('#coursemenu').html(constvar.coursemenu);
 		})
+		myapp.onPageBeforeInit('newsinfo', function(page){
+			console.log(constvar);
+			$('#news_title').html(constvar.title);
+			$('#news_pubtime').html('发布时间：'+constvar.pubtime.slice(0,10));
+			$('#news_author').html('作者：'+constvar.author);
+			$('#news_origin').html('来源：'+constvar.origin);
+			$('#news_publisher').html('责任编辑：'+constvar.publisher);
+			$('#news_content').html(constvar.content);
+		})
+		function go_news(pages){
+			$.post('/go_news_pages', {'page': pages}, function(res){
+				console.log(res.data);
+				if(res.status == 'success'){
+					var html = '';
+					for(var i in res.data){
+						var news = res.data[i];
+						var pubt = new Date(news.pubtime);
+						html += ' <li><a href="" class="item-link item-content get_news" title="'+news['title']+'" pubtime="'+ (pubt.getFullYear()+'-'+(pubt.getMonth()+1)+'-'+pubt.getDate()) +'"><span class="item-inner"><span class="item-title">'+ news.title +'</span><span class="item-after">'+ (pubt.getFullYear()+'-'+(pubt.getMonth()+1)+'-'+pubt.getDate()) +'</span></span></a></li>';
+					}
+					if(html!=''){
+						$('#news ul').html(html);
+						$('.news-page').text(pages);
+					}
+				}else myapp.alert(msg, '错误提示');
+			}, 'json');
+		}
+		$('body').on('click', '.prev-page', function(e){
+			if($('.news-page').text()!='1'){
+				go_news(parseInt($('.news-page').text())-1);
+			}
+		});
+		$('body').on('click', '.next-page', function(e){
+			go_news(parseInt($('.news-page').text())+1);
+		});
 		//设置页（退出登录）
 		myapp.onPageBeforeInit('setting', function(page){
 			$('#loginout').on('click', function(e){

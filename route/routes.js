@@ -11,6 +11,30 @@ function getTimeStr(){
 	return [[nd.getFullYear(),nd.getMonth(),nd.getDate()].join('-'),[nd.getHours(),nd.getMinutes(),nd.getSeconds()].join(':')].join(' ');
 }
 module.exports = function(app){
+	app.post('/go_news_pages', (req, res) => {
+		var sql = "select title, pubtime from (select *, row_number() over() as rown from news order by pubtime desc) as bb where rown>"+((req.body['page']-1)*10).toString()+" limit 10;";
+		console.log(sql);
+		db.any(sql).then(data => {
+			if(data.length > 0){
+				res.json({
+					'status': 'success',
+					'data': data
+				});
+			}else res.json({'status': 'error', 'msg': '已经是最后一页！'});
+		});
+	});
+	app.post('/get_news', (req, res) => {
+		var sql = "select * from news where title='"+req.body['title']+"' and pubtime='"+req.body['pubtime']+"'";
+		console.log(sql);
+		db.any(sql).then(data => {
+			if(data.length > 0){
+				res.json({
+					'status': 'success',
+					'data': data[0]
+				})
+			}else res.json({'status': 'error', 'msg': '未查询到结果！'});
+		})
+	})
 	app.post('/get_course_all', (req, res) => {
 		var sql = "select courseimg, coursename, teacher, coursetype from course where coursetype='"+req.body['courseType']+"'";
 		console.log(sql);
@@ -121,7 +145,7 @@ module.exports = function(app){
 				var sql = "select coursename,courseimgbig,teacher,teacherimg from course where coursevideomd!='' and teacherimg!='' and courseimgbig!='' and coursename!='' limit 4;";
 				console.log(sql);
 				return t.any(sql).then(hotc => {
-					var sql = "select * from news order by pubtime desc limit 8;";
+					var sql = "select * from news order by pubtime desc limit 10;";
 					console.log(sql);
 					return t.any(sql).then(news => {
 						res.render('index', {

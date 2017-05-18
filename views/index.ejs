@@ -154,9 +154,14 @@
                 <div class="list-block" id="news">
                   <ul>
 										<% hotnews.forEach(function(news){ var pubt = new Date(news.pubtime); %>
-											<li><a href="" class="item-link item-content"><span class="item-inner"><span class="item-title"><%= news.title %></span><span class="item-after"><%= pubt.getFullYear()+'-'+pubt.getMonth()+'-'+pubt.getDate() %></span></span></a></li>
+										<li><a href="" class="item-link item-content get_news" title="<%= news.title %>" pubtime="<%= pubt.getFullYear()+'-'+(pubt.getMonth()+1)+'-'+pubt.getDate() %>"><span class="item-inner"><span class="item-title"><%= news.title %></span><span class="item-after"><%= pubt.getFullYear()+'-'+(pubt.getMonth()+1)+'-'+pubt.getDate() %></span></span></a></li>
 										<% }) %>
                   </ul>
+										<div class='row'>
+											<div class="col-33"><a class='button button-round prev-page'>上一页</a></div>
+											<div class="col-33"><span class="news-page">1</span></div>
+											<div class="col-33"><a class='button button-round next-page'>下一页</a></div>
+										</div>
                 </div>
               </div>
               <footer>
@@ -209,8 +214,8 @@
 									<div class="content-block"><a href="mailto:zxl_d@foxmail.com">zxl_d@foxmail.com</a></div>
 									<h1 class="about-title">项目本地化</h1>
 									<ol class="about-step" style="word-wrap: break-word;">
-										<li  class="content-block">假设已经安装nodejs、pgsql、python环境.还有git用于版本控制.</li>
-										<li  class="content-block">克隆项目到本地：<code>git clone https://github.com/zhenxianluo/nsf7app.git</code></li>
+										<li class="content-block">假设已经安装nodejs、pgsql、python环境.还有git用于版本控制.</li>
+										<li class="content-block">克隆项目到本地：<code>git clone https://github.com/zhenxianluo/nsf7app.git</code></li>
 										<li class="content-block">进入项目目录：cd nsf7app</li>
 										<li class="content-block">安装nodejs和scrapy的依赖：npm install & pip install -r requirement.txt</li>
 										<li class="content-block">启动pgsql：sudo /etc/init.d/postgresql start</li>

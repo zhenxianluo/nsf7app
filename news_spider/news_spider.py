@@ -44,10 +44,17 @@ def get_data(path_url):
                 }
         for title in mapping:
             data[title] = soup.find('span', {'class': mapping[title]}).get_text().strip()
-        data['content'] = soup.find('div', {'class': 'Article_Content'}).get_text().strip()
-        data['website'] = base_url+link['href']
+        content = soup.find('div', {'class': 'Article_Content'})
         imgs = soup.select('.Article_Content img')
         if len(imgs) > 0: data['content_img'] = '|'.join([base_url+img['src'] for img in imgs])
+        for img in content.select('img'):
+            img['src'] = base_url + img['src']
+        for i in content.descendants:
+            if i.name == 'img':
+                for k in [j for j in i.attrs if j != 'src']:del i[k]
+            elif i.name:del i.attrs
+        data['content'] = re.sub('\'', '"', str(content)).replace('<br>', '').replace('<span></span>', '').replace('<p></p>', '')
+        data['website'] = base_url+link['href']
         output.append(data)
     save_data(output)
 
