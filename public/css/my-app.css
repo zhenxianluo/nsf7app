@@ -288,8 +288,8 @@ footer p{
   line-height: 170px;
 }
 .welcomescreen-container .welcomescreen-text a{
-  color: #fff;
-  text-decoration: underline;
+  color: #cddc39;
+  text-decoration: none;
 }
 .tutorial-close-btn {
   background: #fff;

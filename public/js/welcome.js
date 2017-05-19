@@ -21,7 +21,7 @@ myapp.welcome = function (myapp, $$) {
                       '<div class="item-content">'+
                           '<div class="item-media"><i class="icon icon-form-email"></i></div>'+
                           '<div class="item-inner">'+
-                              '<input type="password" id="userpasswd" name="passwd" placeholder="密码" style="width: 70%;"><a href="#" class="forgetpasswd">找回<br>密码</a>'+
+                              '<input type="password" id="userpasswd" name="passwd" placeholder="密码" style="width: 70%;"><a href="#" class="button forgetpasswd">找回密码</a>'+
                           '</div>'+
                       '</div>'+
                   '</li>'+
@@ -85,20 +85,16 @@ myapp.welcome = function (myapp, $$) {
     $$('.welcomescreen-container').append($$('.issues-info').html());
     $$('.issues-info').remove();
 		/*登录页输入框验证 开始*/
-		$$(".welcomescreen-text .login-btn").on('click', function(event) { 
-			var username=$$("#username").val(),
-					userpasswd=$$("#userpasswd").val();
+		function login(username, userpasswd){
 			var bz=0;
 			if(username=="test" && userpasswd=="test"){
 				welcomescreen.close();
-			}else if ($$("#username").val()==""||$$("#userpasswd").val()=="") {
-				if($$("#username").val()==""){
-					$$("#username").css("border","1px solid red");
+			}else if (username==""||userpasswd=="") {
+				if(username==""){
 					myapp.alert("用户名不能为空","登录提示");
 					bz=1;
 				}
-				if($$("#userpasswd").val()==""){
-					$$("#userpasswd").css("border","1px solid red");
+				if(userpasswd==""){
 					if (bz==0) myapp.alert("密码不能为空","登录提示");
 				}
 			}else{
@@ -115,22 +111,33 @@ myapp.welcome = function (myapp, $$) {
 					}
 				}, 'json');
 			}
+		}
+		$$(".welcomescreen-text .login-btn").on('click', function(event) { 
+			var username=$$("#username").val(),
+					userpasswd=$$("#userpasswd").val();
+			login(username, userpasswd);
 		});
+		myapp.params.modalUsernamePlaceholder = '用户名/邮箱'
+		myapp.params.modalPasswordPlaceholder = '密码';
+		myapp.params.modalButtonCancel = '取消';
+		myapp.params.modalButtonOk = '登录';
 		$$("#username").blur(function(event){
 			if($$(this).val()==""){
 				$$(this).css("border","1px solid red");
 			}
 		})
-		$$("#username").focus(function(event){
-			$$(this).css("border","");
-		})
-		$$("#userpasswd").blur(function(event){
-			if($$(this).val()==""){
-				$$(this).css("border","1px solid red");
+		var islogin = false;
+		function login_switch(time){
+			setTimeout(function(){islogin = false;}, time)
+		}
+		$(window).on('resize', function(e){
+			if($('.welcomescreen-text')[3].offsetTop<-70 && !islogin){
+				islogin = true;
+				myapp.modalLogin('点击登录登录app', '网站提醒', function (username, password) {
+					login(username, password);
+					login_switch(500);
+				}, function(){login_switch(500);});
 			}
-		})
-		$$("#userpasswd").focus(function(event){
-			$$(this).css("border","");
 		})
 		/*登录页输入框验证 结束*/
 		/*第三方登录之微博 开始*/
