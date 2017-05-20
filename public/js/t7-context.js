@@ -95,5 +95,5 @@ var context={
   		iconName: "settings",
   		className: "setting"
   	}
-  ],
+  ]
 }

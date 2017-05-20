@@ -1,6 +1,11 @@
 var myapp = myapp || {}; 
 myapp.pages = myapp.pages || {}; 
 myapp.welcome = function (myapp, $$) {
+    var $template,t7html,compiledTemplate,
+    $template=$$('#register').html();
+    compiledTemplate=Template7.compile($template);
+    t7html=compiledTemplate(context);
+    $$('#register').html(t7html);
   // 引导页js代码
   (function(){
     var logintext=

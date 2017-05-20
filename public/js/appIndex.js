@@ -25,10 +25,6 @@ myapp.appIndex = function (myapp, $$) {
     t7html=compiledTemplate(context);
     $$('#course').html(t7html);
 
-    $template=$$('#register').html();
-    compiledTemplate=Template7.compile($template);
-    t7html=compiledTemplate(context);
-    $$('#register').html(t7html);
 
     $template=$$('#menuList').html();
     compiledTemplate=Template7.compile($template);
