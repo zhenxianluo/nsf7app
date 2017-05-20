@@ -1,9 +1,0 @@
-CACHE MANIFEST
-#version 0.1.2
-CACHE:
-	lib/framework7/css/framework7.ios.min.css
-	lib/framework7/css/framework7.ios.colors.min.css
-	lib/framework7/js/framework7.min.js
-	js/IndexPageController.js
-NETWORK:
-	*

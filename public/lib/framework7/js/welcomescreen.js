@@ -35,7 +35,7 @@ Framework7.prototype.plugins.welcomescreen = function (app, globalPluginParams) 
       swiperContainer,
       defaults = {
         closeButton: true,        // enabled/disable close button
-        closeButtonText : '跳过', // close button text
+        closeButtonText : '',//跳过', // close button text
         cssClass: '',             // additional class on container
         pagination: true,         // swiper pagination
         loop: false,              // swiper loop

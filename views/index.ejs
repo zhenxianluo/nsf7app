@@ -15,7 +15,7 @@
     <!-- qq互联登录接口sdk引用 , 暂时使用demo页的appid-->
 		<!--<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="100229030" charset="utf-8"></script>-->
     <!-- Your app title -->
-    <title>视频教程</title>
+    <title>公共课手机版</title>
     <!-- 引入framework7样式文件-->
     <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
     <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
@@ -30,6 +30,10 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
   </head>
   <body>
+		<% if(user == -1) { %>
+			<style id='temp-style'>.welcome-overlay{background:#ccc;}</style>
+			<div class="modal modal-no-buttons modal-preloader modal-in" style="display: block; margin-top: -50px;"><div class="modal-inner"><div class="modal-title">加载中...</div><div class="modal-text"><div class="preloader"></div></div></div><div class="modal-buttons "></div></div><div class="modal-overlay modal-overlay-visible welcome-overlay"></div>
+		<% } %>
 		<input type='hidden' id='infomation' value='<%= infomation %>'>
     <!-- Status bar overlay for full screen mode (PhoneGap) -->
     <div class="statusbar-overlay"></div>
@@ -104,7 +108,7 @@
               <span>主页</span>
             </a>
             </div>
-            <div class="center sliding navbarTitle">视频教程</div>
+            <div class="center sliding navbarTitle">首页</div>
             <div class="right">
             <a href="#" class="link sliding" id="scan">
               <span>扫一扫</span>
@@ -429,9 +433,9 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <!-- 首页引导 -->
     <script type="text/javascript" src="lib/framework7/js/welcomescreen.js"></script>
-    <!-- 微信jssdk -->
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<!--     <script type="text/javascript">
+    <!-- 微信jssdk
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+     <script type="text/javascript">
   wx.config({
     debug: false,
     appId: '<?php echo $signPackage["appId"];?>',
@@ -476,6 +480,8 @@
 				var ipc = new myapp.appIndex(fw7App, $$);
 				<% if(user == -1) { %>
 				var welcome = new myapp.welcome(fw7App, $$);
+				fw7App.hidePreloader();
+				$('#temp-style').remove();
 				<% } %>
 			}); 
 			return exports;

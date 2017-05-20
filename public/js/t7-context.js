@@ -94,6 +94,14 @@ var context={
   		name: "设置",
   		iconName: "settings",
   		className: "setting"
+  	},{
+  		name: "新手引导",
+  		iconName: "help",
+  		className: "help"
+  	},{
+  		name: "推荐给好友",
+  		iconName: "paper_plane",
+  		className: "share"
   	}
   ]
 }

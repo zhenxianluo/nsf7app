@@ -13,7 +13,6 @@ function getTimeStr(){
 module.exports = function(app){
 	app.post('/go_news_pages', (req, res) => {
 		var sql = "select title, pubtime from (select *, row_number() over() as rown from news order by pubtime desc) as bb where rown>"+((req.body['page']-1)*10).toString()+" limit 10;";
-		console.log(sql);
 		db.any(sql).then(data => {
 			if(data.length > 0){
 				res.json({
@@ -25,7 +24,6 @@ module.exports = function(app){
 	});
 	app.post('/get_news', (req, res) => {
 		var sql = "select * from news where title='"+req.body['title']+"' and pubtime='"+req.body['pubtime']+"'";
-		console.log(sql);
 		db.any(sql).then(data => {
 			if(data.length > 0){
 				res.json({
@@ -37,7 +35,6 @@ module.exports = function(app){
 	})
 	app.post('/get_course_all', (req, res) => {
 		var sql = "select courseimg, coursename, teacher, coursetype from course where coursetype='"+req.body['courseType']+"'";
-		console.log(sql);
 		db.any(sql).then(data => {
 			if(data.length > 0){
 				res.json({
@@ -49,7 +46,6 @@ module.exports = function(app){
 	})
 	app.post('/get_course', (req, res) => {
 		var sql= "select * from course where teacher='"+req.body['teacher']+"' and coursename='"+req.body['coursename']+"'";
-		console.log(sql);
 		db.any(sql).then(data => {
 			if(data.length > 0){
 				res.json({
@@ -74,10 +70,8 @@ module.exports = function(app){
 					item.push(title+"='"+req.body[title]+"'")
 			}
 			var sql = "update siteuser set "+item.join(',')+" where username='"+req.session.user+"'";
-			console.log(sql);
 			return t.none(sql).then(() => {
 				var sql = "select * from siteuser where username='"+req.session.user+"'";
-				console.log(sql);
 				return t.any(sql).then(data => {
 					if(data.length > 0){
 						res.json({
@@ -113,11 +107,9 @@ module.exports = function(app){
 			var filename = '/' + req.session.user + (new Date().getTime()) + '.' + file_type;
 			db.tx(t => {
 				var sql = "update siteuser set headimg='/userimg"+filename+"' where username='"+req.session.user+"'";
-				console.log(sql);
 				return t.none(sql).then( () => {
 					fs.renameSync(file.path,path.join(form.uploadDir,filename));
 					var sql = "select * from siteuser where username='"+req.session.user+"'";
-					console.log(sql);
 					return t.any(sql).then(data => {
 						if(data.length > 0){
 							res.json({
@@ -135,7 +127,6 @@ module.exports = function(app){
 		var user, useremail, info, headimg;
 		db.tx(t => {
 			var sql = "select * from siteuser where username='"+req.session.user+"'";
-			console.log(sql);
 			return t.any(sql).then(data => {
 				if(data.length > 0){
 					useremail=data[0].email;
@@ -143,10 +134,8 @@ module.exports = function(app){
 					headimg = data[0].headimg;
 				}
 				var sql = "select coursename,courseimgbig,teacher,teacherimg from course where coursevideomd!='' and teacherimg!='' and courseimgbig!='' and coursename!='' limit 4;";
-				console.log(sql);
 				return t.any(sql).then(hotc => {
 					var sql = "select * from news order by pubtime desc limit 10;";
-					console.log(sql);
 					return t.any(sql).then(news => {
 						res.render('index', {
 							user: req.session.user||-1,
@@ -172,7 +161,6 @@ module.exports = function(app){
 		if(/.*@.*\.com$/.test(req.body.username))querystr = 'email';
 		else querystr = 'username';
 		var sql = "select * from siteuser where "+querystr+"='"+req.body.username+"'";
-		console.log(sql);
 		db.any(sql).then(data => {
 			if(data.length > 0){
 				if(req.body.password == data[0].password){
@@ -200,7 +188,6 @@ module.exports = function(app){
 	});
 	app.post('/register', (req, res) => {
 		var sql = "select * from siteuser where username='"+req.body.username+"' or email='"+req.body.email+"';";
-		console.log(sql);
 		db.tx(t => {
 			return t.any(sql).then(data =>{
 				if(data.length > 0){
@@ -212,7 +199,6 @@ module.exports = function(app){
 				}else{
 					var timestr = getTimeStr();
 					var sql = "insert into siteuser(username, password, email, sex, birthday, createtime) values('" + req.body.username + "', '"+req.body.password+"', '"+req.body.email+"', '"+req.body.sex+"', '"+req.body.birthday+"', '"+timestr+"');";
-					console.log(sql);
 					return t.query(sql);
 				}
 			});

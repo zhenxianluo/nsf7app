@@ -44,7 +44,9 @@ myapp.welcome = function (myapp, $$) {
                       '<img src="lib/framework7/img/wechatlogin.svg" id="wechatLoginBtn">'+
                   '</div>'+
                   '<div class="col-33">'+
-                      '<div id="wb_connect_btn"></div>'+
+                      '<div id="wb_connect_btn">'+
+                      '<img src="lib/framework7/img/webologin.svg" id="weboLoginBtn">'+
+											'</div>'+
                   '</div>'+
               '</div>'+
           '</div>';
@@ -125,18 +127,13 @@ myapp.welcome = function (myapp, $$) {
 		myapp.params.modalUsernamePlaceholder = '用户名/邮箱'
 		myapp.params.modalPasswordPlaceholder = '密码';
 		myapp.params.modalButtonCancel = '取消';
-		myapp.params.modalButtonOk = '登录';
-		$$("#username").blur(function(event){
-			if($$(this).val()==""){
-				$$(this).css("border","1px solid red");
-			}
-		})
+		myapp.params.modalButtonOk = '确认';
 		var islogin = false;
 		function login_switch(time){
 			setTimeout(function(){islogin = false;}, time)
 		}
 		$(window).on('resize', function(e){
-			if($('.welcomescreen-text')[3].offsetTop<-70 && !islogin){
+			if($('.welcomescreen-text')[3].offsetTop<-70 && !islogin && !$('.register-screen').hasClass('modal-in')){
 				islogin = true;
 				myapp.modalLogin('点击登录登录app', '网站提醒', function (username, password) {
 					login(username, password);
