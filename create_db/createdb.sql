@@ -8,6 +8,6 @@ create table siteuser(
 	intro text,
 	headimg text,
 	birthday timestamp,
-	createTime timestamp
+	createTime timestamp default current_timestamp
 );
 insert into siteuser(username, password, email, sex, blog) values('admin', 'admin', 'zxl_d@foxmail.com', '男', 'http://howduudu.xyz');
