@@ -199,7 +199,7 @@
 									<h2>项目介绍：</h2>
 									<div class="content-block">
 										<p>　　本项目ｕｉ界面及整体框架由去年开始制作，于今年5月开始搭建服务器，打通前后端，可通过cordova打包成安卓app,但会出现图标显示不出来问题，如有兴趣可以共同开发push代码到本git仓库.</p>
-										<p>　　本网站主要定位于共享学习，功能主题为提供优质的课程资源，感谢<a href="http://jhc.zhiye.chaoxing.com/portal">http://jhc.zhiye.chaoxing.com/portal</a>提供数据支持！</p>
+										<p>　　本网站主要定位于共享学习，功能主题为提供优质的课程资源，感谢<a href="http://jhc.zhiye.chaoxing.com/portal">http://jhc.zhiye.chaoxing.com/portal</a>及<a href="http://info.jhc.cn">http://info.jhc.cn</a>提供数据支持！</p>
 									</div>
 									<h1 class="about-title">相关技术</h1>
 									<div class="content-block">
@@ -207,7 +207,9 @@
 									<p>数据库：PostgreSQL</p>
 									<p>数据获取：Python + Scrapy</p>
 									<p>前端框架：framework7</p>
+									<p>模板引擎：ejs</p>
 									<p>前后端交互：jQuery + Ajax</p>
+									<p>接口功能测试：chai + mocha</p>
 									</div>
 									<h1 class="about-title">关于作者</h1>
 									<h2>关于作者：</h2>
@@ -223,10 +225,12 @@
 										<li class="content-block">进入项目目录：cd nsf7app</li>
 										<li class="content-block">安装nodejs和scrapy的依赖：npm install & pip install -r requirement.txt</li>
 										<li class="content-block">启动pgsql：sudo /etc/init.d/postgresql start</li>
-										<li class="content-block">自行配置pgsql并创建deploy用户，用于项目部署用，然后新建数据库：design,其中siteuser存用户数据，course存课程信息</li>
+										<li class="content-block">自行配置pgsql并创建deploy用户，用于项目部署用，然后新建数据库：design,其中siteuser存用户数据，course存课程信息, news存新闻动态.</li>
 										<li class="content-block">创建siteuser表：psql -U deploy -t design -f ./edu_design/create_db/createdb.sql</li>
-										<li class="content-block">创建course表：psql -U deploy -t design -f ./edu_design/create_db/createdb_spider</li>
-										<li class="content-block">启动爬虫爬课程数据进数据库：scrapy crawl course</li>
+										<li class="content-block">创建course表：psql -U deploy -t design -f ./edu_design/create_db/createdb_spider_course.sql</li>
+										<li class="content-block">启动爬虫爬课程数据进数据库：cd spcrapy/course_spider && scrapy crawl course</li>
+										<li class="content-block">创建news表：psql -U deploy -t design -f ./edu_design/create_db/createdb_spider_news.sql</li>
+										<li class="content-block">启动爬虫爬取新闻进数据库: cd spider/news_spider && python news_spider.py</li>
 										<li class="content-block">启动服务器：npm start</li>
 										<li class="content-block">监听网址：127.0.0.1:3000</li>
 									</ol>
@@ -300,13 +304,7 @@
                 <!-- <div class="swiper-pagination"></div> -->
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                    <img src="http://usr.im/750x216?text=好好学习">
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="http://usr.im/750x216?text=好好学习">
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="http://usr.im/750x216?text=好好学习">
+                    <img src="http://usr.im/750x216?text=活动及广告">
                   </div>
                 </div>
               </div>
