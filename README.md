@@ -6,8 +6,8 @@
 数据库：`PostgreSQL`  
 前端：`Framework7`  
 数据交互：`jQuery+Ajax`  
-数据抓取：`Python+Scrapy`
-模板引擎：`ejs`
+数据抓取：`Python+Scrapy`  
+模板引擎：`ejs`  
 接口功能测试：`chai+mocha`
 
 # docker化
