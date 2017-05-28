@@ -11,7 +11,7 @@
 接口功能测试：`chai + mocha`  
 版本控制：`git`  
 编码工具：`vim`、`sublime`  
-辅助工具：`chrome-tools`、`postman`、`ipdb`、`scrapy-shell`、`BeautifulSoup4`
+辅助工具：`chrome-tools`、`postman`、`ipdb`、`scrapy-shell`、`BeautifulSoup4`  
 项目迁移与部署：`docker`
 
 # 项目docker化
