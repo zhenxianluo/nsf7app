@@ -19,7 +19,7 @@
 项目现已docker话，以ubuntu:14.04容器为基础，需要本地安装好docker，然后执行
 1. 进入项目的根目录。
 2. 执行Dockerfile文件：`sudo docker build -t rnet/webapp ./`
-3. 进入容器中并指定端口映射关系：`sudo docker run --restart=always -p 3000:3000 -p 5432:5432 rnet/webapp`
+3. 运行并指定端口映射关系：`sudo docker run --restart=always -p 3000:3000 -p 5432:5432 rnet/webapp`
 4. 本机ip加端口号3000打开查看网站，程序图片见public/imgshow目录
 
 # 交流与联系
