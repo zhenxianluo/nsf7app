@@ -35,7 +35,7 @@ class CourseSpider(scrapy.Spider):
         soup = BeautifulSoup(response._body, 'lxml')
         dls = soup.select('.listCourse dl')
         sourceType = soup.select('.infion-con span')[0].string
-        print '=====', sourceType, '页号', str(i)
+        #print '=====', sourceType, '页号', str(i)
         for dl in dls:
             if len(dl.select('dd')) == 2:
                 item = CourseSpiderItem()

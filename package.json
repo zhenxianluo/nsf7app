@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha -t 1000",
-    "start": "supervisor bin/www"
+    "start": "node bin/www"
   },
   "author": "",
   "license": "ISC",
