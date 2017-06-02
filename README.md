@@ -22,6 +22,9 @@
 3. 运行并指定端口映射关系：`sudo docker run --restart=always -p 3000:3000 -p 5432:5432 rnet/webapp`
 4. 本机ip加端口号3000打开查看网站，程序图片见public/imgshow目录
 
+# 功能结构图
+![功能结构图](./public/showimg/app功能结构图.png)
+
 # 交流与联系
 博客：[HOWDUUDU（好读优读）](http://howduudu.xyz)  
 邮箱：<zxl_d@foxmail.com> and <chinaitlearner@gmail.com>
