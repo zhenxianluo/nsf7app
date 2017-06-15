@@ -5,8 +5,8 @@ var should = chai.should();
 var expect = chai.expect;
 chai.use(chaiHttp);
 
-var data = {'username': 'chent', 'password': '123456', 'email': 'test@test.com', 'sex': '男', 'birthday': '2049-10-01', 'createtime': '2017-05-23'};
-var logindata = {'username': 'chent', 'password': '123456'}
+var data = {'username': 'hahaa', 'password': '123456', 'email': 'hahaa@test.com', 'sex': '男', 'birthday': '2049-10-01', 'createtime': '2017-05-23'};
+var logindata = {'username': 'hahaa', 'password': '123456'}
 console.log('loglog');
 describe('测试api', function(){
     it('测试注册接口，每次测试需要更改username', function(done){

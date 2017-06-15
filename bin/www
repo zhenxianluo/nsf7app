@@ -1,6 +1,6 @@
 var app = require('../app.js');
 
-var port = 3000;
+var port = 3888;
 app.set('port', port);
 app.listen(port, function(req, res){
   console.log('app is runing at prot ' + port);
