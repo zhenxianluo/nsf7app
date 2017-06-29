@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup as BS
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 base_url = os.environ.get('BASE_URL')
+conn = psycopg2.connect(os.environ.get('PG_URL'))
 
 def save_data(datas):
     for data in datas:
@@ -17,7 +18,6 @@ def save_data(datas):
             values.append(data[key])
         sql = "insert into news(" + ','.join(keys) + ") values('" + "','".join(values) + "');";
         try:
-            conn = psycopg2.connect(os.environ.get('PG_URL'))
             cur = conn.cursor()
             cur.execute(sql.encode('utf-8'))
             conn.commit()
@@ -26,7 +26,6 @@ def save_data(datas):
             logging.error(str(e))
         finally:
             if cur is not None: cur.close()
-            if conn is not None: conn.close()
 
 
 def get_data(path_url):
